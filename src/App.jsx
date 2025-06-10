@@ -1,26 +1,37 @@
 // src/App.jsx
 
 import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import BirthdayPage from './components/BirthdayPage';
 import VideoPlayer from './components/VideoPlayer';
+import EntryScreen from './components/EntryScreen';
 
 function App() {
-  // State untuk mengontrol tampilan: 'video' atau 'birthday'
-  const [currentView, setCurrentView] = useState('video');
+  const [appState, setAppState] = useState('entry'); // State awal: 'entry'
 
-  // Fungsi ini akan dipanggil oleh VideoPlayer saat sudah selesai
-  const handleVideoFinish = () => {
-    setCurrentView('birthday');
+  const handleEnter = () => {
+    setAppState('video'); // Setelah klik, ganti ke 'video'
   };
 
-  // Logika render yang sangat sederhana
-  if (currentView === 'video') {
-    // Jika state adalah 'video', tampilkan HANYA VideoPlayer
-    return <VideoPlayer onFinish={handleVideoFinish} />;
-  } else {
-    // Jika state adalah 'birthday', tampilkan HANYA BirthdayPage
-    return <BirthdayPage />;
-  }
+  const handleVideoFinish = () => {
+    setAppState('birthday'); // Setelah video, ganti ke 'birthday'
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      {appState === 'entry' && (
+        <EntryScreen key="entry" onEnter={handleEnter} />
+      )}
+
+      {appState === 'video' && (
+        <VideoPlayer key="video" onFinish={handleVideoFinish} />
+      )}
+
+      {appState === 'birthday' && (
+        <BirthdayPage key="birthday" />
+      )}
+    </AnimatePresence>
+  );
 }
 
 export default App;
