@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import BirthdayPage from './components/BirthdayPage';
-import VideoPlayer from './components/VideoPlayer';
-import EntryScreen from './components/EntryScreen';
+import BirthdayPage from './components/BirthdayPage.jsx';
+import VideoPlayer from './components/VideoPlayer.jsx';
+import EntryScreen from './components/EntryScreen.jsx';
 
 function App() {
   const [appState, setAppState] = useState('entry'); // State awal: 'entry'
